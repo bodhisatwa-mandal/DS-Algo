@@ -1,35 +1,23 @@
 #include <iostream>
 #include <cmath>
-
+#define ll long long int
+#define MOD 1000000009
+ 
 using namespace std;
 
-long long int fast_exp(int base, int exp)
+ll fast_exp(ll base,ll exp)
 {
-    if(exp==1)
-    return base;
-    else
-    {
-        if(exp%2 == 0)
-        {
-            long long int base1 = pow(fast_exp(base, exp/2),2);
-            if(base1 >= 1000000007)
-            return base1%1000000007;
-            else
-            return base1;
-        }
-        else
-        {
-            long long int ans = (base*  pow(fast_exp(base,(exp-1)/2),2));
-            if(ans >= 1000000007)
-            return ans%1000000007;
-            else
-            return ans;
-        }
+    ll res=1;
+    while(exp>0) {
+       if(exp%2==1) res=(res*base)%MOD;
+       base=(base*base)%MOD;
+       exp/=2;
     }
+    return res%MOD;
 }
 int main()
 {
-	long long int base,exp;
+	ll base,exp;
 	cin>>base>>exp;
 	cout<<fast_exp(base,exp)<<endl;
 	return 0;
